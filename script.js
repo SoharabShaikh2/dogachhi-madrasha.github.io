@@ -41,13 +41,24 @@ function displayData(data, containerId) {
 
     // Create date range filter inputs
     const dateFilterDiv = document.createElement('div');
-    dateFilterDiv.innerHTML = `
+    if (containerId == 'expenseContainer') {
+        dateFilterDiv.innerHTML = `
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate">
         <label for="endDate">End Date:</label>
         <input type="date" id="endDate">
         <button onclick="applyDateFilter('${containerId}')">Apply Filter</button>
     `;
+    }
+    else {
+        dateFilterDiv.innerHTML = `
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate1">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate1">
+        <button onclick="applyDateFilter('${containerId}')">Apply Filter</button>
+    `;
+    }
     container.appendChild(dateFilterDiv);
 
     const tableContainer = document.createElement('div');
@@ -109,8 +120,16 @@ function displayData(data, containerId) {
 
 function applyDateFilter(containerId) {
     const container = document.getElementById(containerId);
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
+    var startDate = '';
+    var endDate = '';
+    if (containerId == 'expenseContainer') {
+        startDate = document.getElementById('startDate').value;
+        endDate = document.getElementById('endDate').value;
+    }
+    else {
+        startDate = document.getElementById('startDate1').value;
+        endDate = document.getElementById('endDate1').value;
+    }
 
     // Get the original data from local storage
     const originalData = JSON.parse(localStorage.getItem('originalData'));
