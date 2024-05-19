@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মাদ্রাসা হাফিজিয়া ইসলামিয়া কুদরাতিয়া</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>মাদ্রাসা হাফিজিয়া ইসলামিয়া কুদরাতিয়া</h1>
+    </header>
+    <main>
+        <section id="introduction" class="page active" style="text-align: center;">
+            <img src="madrasa.jpg" alt="Madrasa Image" class="responsive-img">
+            <h3>Total Students: <span id="total-students"></span></h3>
+            <h3>Total Collection: ₹ <span id="total-collection"></span></h3>
+            <h3>Total Expenses: ₹ <span id="total-expenses"></span></h3>
+        </section>
+        <section id="collection" class="page">
+            <h2>Collection</h2>
+            <div id="collectionContainer"></div>
+            <div id="collectionPagination"></div>
+        </section>
+        <section id="expense" class="page">
+            <h2>Expense</h2>
+            <div id="expenseContainer"></div>
+            <div id="expensePagination"></div>
+        </section>
+        <section id="contact" class="page">
+            <h2>Contact Us</h2>
+            <p>Address: 123 Islamic Street, City, Country</p>
+            <p>Contact: +880 123456789</p>
+            <p>Facebook: <a href="#">Facebook Page</a></p>
+            <p>Youtube: <a href="#">Youtube Channel</a></p>
+        </section>
+    </main>
+    <footer>
+        <nav>
+            <div class="tab" onclick="showPage('introduction')">Introduction</div>
+            <div class="tab" onclick="showPage('collection')">Collection</div>
+            <div class="tab" onclick="showPage('expense')">Expense</div>
+            <div class="tab" onclick="showPage('contact')">Contact Us</div>
+        </nav>
+        <!-- <p>&copy; 2024 মাদ্রাসা হাফিজিয়া ইসলামিয়া কুদরাতিয়া</p> -->
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

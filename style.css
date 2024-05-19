@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Ensure footer sticks to the bottom */
+    min-height: calc(100vh - 110px); /* Adjusted to make space for footer */
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #4CAF50;
+}
+
+.tab {
+    padding: 1em;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    border-right: 1px solid #45a049;
+    flex: 1;
+}
+
+.tab:last-child {
+    border-right: none;
+}
+
+.tab:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 600px) {
+    nav {
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 1; /* Ensure navigation is on top of content */
+    }
+
+    .tab {
+        border-right: none;
+        border-bottom: 1px solid #45a049;
+    }
+
+    .tab:last-child {
+        border-bottom: none;
+    }
+
+    main {
+        padding-bottom: 60px; /* Adjusted to make space for footer */
+    }
+}
+/* Add this CSS to your existing style.css file */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ccc; /* Border for the table */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc; /* Border for table cells */
+}
