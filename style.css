@@ -1,3 +1,5 @@
+/* Your existing styles */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -86,7 +88,8 @@ nav {
         padding-bottom: 60px; /* Adjusted to make space for footer */
     }
 }
-/* Add this CSS to your existing style.css file */
+
+/* Table styles */
 
 table {
     width: 100%;
@@ -99,4 +102,23 @@ th, td {
     padding: 10px;
     text-align: left;
     border: 1px solid #ccc; /* Border for table cells */
+}
+
+/* Make table body scrollable */
+
+.table-container {
+    max-height: 400px; /* Adjust as needed */
+    overflow-y: auto;
+}
+
+/* Optional: Add padding to the table to prevent content from sticking to the edges */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
