@@ -50,6 +50,9 @@ function displayData(data, containerId) {
     `;
     container.appendChild(dateFilterDiv);
 
+    const tableContainer = document.createElement('div');
+    tableContainer.classList.add('table-container');
+
     // Display table
     const table = document.createElement('table');
     const thead = document.createElement('thead');
@@ -99,8 +102,10 @@ function displayData(data, containerId) {
     tbody.appendChild(totalRow); // Append the total row to the table body
 
     table.appendChild(tbody);
-    container.appendChild(table);
+    tableContainer.appendChild(table);
+    container.appendChild(tableContainer);
 }
+
 
 function applyDateFilter(containerId) {
     const container = document.getElementById(containerId);
