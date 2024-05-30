@@ -12,5 +12,15 @@
     {"Date": "2024-05-15", "Amount in Rupees": 70, "Description Note": "Grocery"},
     {"Date": "2024-05-15", "Amount in Rupees": 400, "Description Note": "Grocery Masoor Dal (5Kg)"},
     {"Date": "2024-05-15", "Amount in Rupees": 1350, "Description Note": "Due Clear Borka"},
-    {"Date": "2024-05-18", "Amount in Rupees": 100, "Description Note": "Grocery"}
+    {"Date": "2024-05-18", "Amount in Rupees": 100, "Description Note": "Grocery"},
+    {"Date": "2024-05-20", "Amount in Rupees": 30, "Description Note": "Grocery"},
+    {"Date": "2024-05-20", "Amount in Rupees": 90, "Description Note": "Grocery"},
+    {"Date": "2024-05-21", "Amount in Rupees": 50, "Description Note": "Toto Hire"},
+    {"Date": "2024-05-21", "Amount in Rupees": 920, "Description Note": "Meat"},
+    {"Date": "2024-05-23", "Amount in Rupees": 85, "Description Note": "Grocery"},
+    {"Date": "2024-05-24", "Amount in Rupees": 100, "Description Note": "Stationary (Kulo)"},
+    {"Date": "2024-05-26", "Amount in Rupees": 50, "Description Note": "Grocery"},
+    {"Date": "2024-05-27", "Amount in Rupees": 150, "Description Note": "Grocery"},
+    {"Date": "2024-05-28", "Amount in Rupees": 140, "Description Note": "Grocery"},
+    {"Date": "2024-05-28", "Amount in Rupees": 1900, "Description Note": "Fan Fixing"}
 ]
