@@ -22,6 +22,31 @@ function showPage(pageId) {
                 displayData(data, 'expenseContainer');
             });
     }
+    else if (pageId === 'introduction') {
+        showTotal();
+    }
+}
+
+function showTotal() {
+    fetch('collection.json')
+        .then(response => response.json())
+        .then(data => {
+            var totalAmount = 0;
+            data.forEach(row => {
+                totalAmount += parseFloat(row['Amount in Rupees']);
+            });
+            document.getElementById('total-collection').textContent = totalAmount;
+        });
+
+    fetch('expenses.json')
+        .then(response => response.json())
+        .then(data => {
+            var totalAmount = 0;
+            data.forEach(row => {
+                totalAmount += parseFloat(row['Amount in Rupees']);
+            });
+            document.getElementById('total-expenses').textContent = totalAmount;
+        });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -30,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             document.getElementById('total-students').textContent = data.totalStudents;
-            document.getElementById('total-collection').textContent = data.totalCollection;
-            document.getElementById('total-expenses').textContent = data.totalExpenses;
+            document.getElementById('total-hand').textContent = data.totalInHand;
+            //document.getElementById('total-expenses').textContent = data.totalExpenses;
         });
 });
 
