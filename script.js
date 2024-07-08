@@ -8,18 +8,22 @@ function showPage(pageId) {
     document.querySelector(`.tab[onclick="showPage('${pageId}')"]`).classList.add('active');
 
     if (pageId === 'collection') {
-        fetch('collection.json')
-            .then(response => response.json())
+        fetchGoogleSheetData('https://docs.google.com/spreadsheets/d/e/2PACX-1vS9B2Qx61ysStVnpfoJKAMeO7JZbTVhWGjm0dLgwHbtzNsrXKgMSbaI27EpjfKEl0EHc_krJEvPU7rU/pub?gid=1906244150&single=true&output=csv')
             .then(data => {
                 localStorage.setItem('originalData', JSON.stringify(data));
                 displayData(data, 'collectionContainer');
             });
     } else if (pageId === 'expense') {
-        fetch('expenses.json')
-            .then(response => response.json())
+        fetchGoogleSheetData('https://docs.google.com/spreadsheets/d/e/2PACX-1vS9B2Qx61ysStVnpfoJKAMeO7JZbTVhWGjm0dLgwHbtzNsrXKgMSbaI27EpjfKEl0EHc_krJEvPU7rU/pub?gid=1391210603&single=true&output=csv')
             .then(data => {
                 localStorage.setItem('originalData', JSON.stringify(data));
                 displayData(data, 'expenseContainer');
+            });
+    } else if (pageId === 'cashInHand') {
+        fetchGoogleSheetData('https://docs.google.com/spreadsheets/d/e/2PACX-1vS9B2Qx61ysStVnpfoJKAMeO7JZbTVhWGjm0dLgwHbtzNsrXKgMSbaI27EpjfKEl0EHc_krJEvPU7rU/pub?gid=2019599482&single=true&output=csv')
+            .then(data => {
+                localStorage.setItem('originalData', JSON.stringify(data));
+                displayData(data, 'cashInHandContainer');
             });
     }
     else if (pageId === 'introduction') {
@@ -27,37 +31,62 @@ function showPage(pageId) {
     }
 }
 
+function fetchGoogleSheetData(url) {
+    return fetch(url)
+        .then(response => response.text())
+        .then(csvText => {
+            const data = csvToJSON(csvText);
+            return data;
+        });
+}
+
+function csvToJSON(csvText) {
+    const lines = csvText.split('\n');
+    const result = [];
+    const headers = lines[0].split(',');
+
+    for (let i = 1; i < lines.length; i++) {
+        const obj = {};
+        const currentline = lines[i].split(',');
+
+        headers.forEach((header, index) => {
+            obj[header.trim()] = currentline[index].trim();
+        });
+
+        result.push(obj);
+    }
+
+    return result;
+}
+
 function showTotal() {
-    fetch('collection.json')
-        .then(response => response.json())
+    fetchGoogleSheetData('https://docs.google.com/spreadsheets/d/e/2PACX-1vS9B2Qx61ysStVnpfoJKAMeO7JZbTVhWGjm0dLgwHbtzNsrXKgMSbaI27EpjfKEl0EHc_krJEvPU7rU/pub?gid=1906244150&single=true&output=csv')
         .then(data => {
-            var totalAmount = 0;
-            data.forEach(row => {
-                totalAmount += parseFloat(row['Amount in Rupees']);
-            });
+            var totalAmount = data[0]['Total:'];
             document.getElementById('total-collection').textContent = totalAmount;
         });
 
-    fetch('expenses.json')
-        .then(response => response.json())
+    fetchGoogleSheetData('https://docs.google.com/spreadsheets/d/e/2PACX-1vS9B2Qx61ysStVnpfoJKAMeO7JZbTVhWGjm0dLgwHbtzNsrXKgMSbaI27EpjfKEl0EHc_krJEvPU7rU/pub?gid=1391210603&single=true&output=csv')
         .then(data => {
-            var totalAmount = 0;
-            data.forEach(row => {
-                totalAmount += parseFloat(row['Amount in Rupees']);
-            });
+            var totalAmount = data[0]['Total:'];
             document.getElementById('total-expenses').textContent = totalAmount;
+        });
+    fetchGoogleSheetData('https://docs.google.com/spreadsheets/d/e/2PACX-1vS9B2Qx61ysStVnpfoJKAMeO7JZbTVhWGjm0dLgwHbtzNsrXKgMSbaI27EpjfKEl0EHc_krJEvPU7rU/pub?gid=2019599482&single=true&output=csv')
+        .then(data => {
+            var totalAmount = data[0]['Total:'];
+
+            document.getElementById('total-hand').textContent = totalAmount;
         });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
     showPage('introduction');
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('total-students').textContent = data.totalStudents;
-            document.getElementById('total-hand').textContent = data.totalInHand;
-            //document.getElementById('total-expenses').textContent = data.totalExpenses;
-        });
+    document.getElementById('total-students').textContent = 40;
+    // fetchGoogleSheetData('https://docs.google.com/spreadsheets/d/e/2PACX-1vS9B2Qx61ysStVnpfoJKAMeO7JZbTVhWGjm0dLgwHbtzNsrXKgMSbaI27EpjfKEl0EHc_krJEvPU7rU/pub?gid=2019599482&single=true&output=csv')
+    //     .then(data => {
+    //         document.getElementById('total-students').textContent = data.totalStudents;
+    //         document.getElementById('total-hand').textContent = data.totalInHand;
+    //     });
 });
 
 function displayData(data, containerId) {
@@ -66,7 +95,7 @@ function displayData(data, containerId) {
 
     // Create date range filter inputs
     const dateFilterDiv = document.createElement('div');
-    if (containerId == 'expenseContainer') {
+    if (containerId === 'expenseContainer') {
         dateFilterDiv.innerHTML = `
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate">
@@ -74,8 +103,7 @@ function displayData(data, containerId) {
         <input type="date" id="endDate">
         <button onclick="applyDateFilter('${containerId}')">Apply Filter</button>
     `;
-    }
-    else {
+    } else if (containerId === 'collectionContainer') {
         dateFilterDiv.innerHTML = `
         <label for="startDate">Start Date:</label>
         <input type="date" id="startDate1">
@@ -98,9 +126,11 @@ function displayData(data, containerId) {
     const headers = Object.keys(data[0]);
     const headerRow = document.createElement('tr');
     headers.forEach(header => {
-        const th = document.createElement('th');
-        th.textContent = header;
-        headerRow.appendChild(th);
+        if (header != 'Total:') {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+        }
     });
     thead.appendChild(headerRow);
     table.appendChild(thead);
@@ -110,17 +140,18 @@ function displayData(data, containerId) {
     data.forEach(row => {
         const tr = document.createElement('tr');
         headers.forEach(header => {
-            const td = document.createElement('td');
-            if (header === 'Amount in Rupees') {
-                td.textContent = "₹ " + row[header];
-            }
-            else {
-                td.textContent = row[header];
-            }
-            tr.appendChild(td);
-            // If the header is 'Amount', calculate the total amount
-            if (header === 'Amount in Rupees') {
-                totalAmount += parseFloat(row[header]);
+            if (header != 'Total:') {
+                const td = document.createElement('td');
+                if (header === 'Amount in Rupees') {
+                    td.textContent = row[header];
+                } else {
+                    td.textContent = row[header];
+                }
+                tr.appendChild(td);
+                // If the header is 'Amount', calculate the total amount
+                if (header === 'Amount in Rupees') {
+                    totalAmount += parseFloat((row[header]).replace('₹', ''));
+                }
             }
         });
         tbody.appendChild(tr);
@@ -142,16 +173,14 @@ function displayData(data, containerId) {
     container.appendChild(tableContainer);
 }
 
-
 function applyDateFilter(containerId) {
     const container = document.getElementById(containerId);
     var startDate = '';
     var endDate = '';
-    if (containerId == 'expenseContainer') {
+    if (containerId === 'expenseContainer') {
         startDate = document.getElementById('startDate').value;
         endDate = document.getElementById('endDate').value;
-    }
-    else {
+    } else {
         startDate = document.getElementById('startDate1').value;
         endDate = document.getElementById('endDate1').value;
     }
